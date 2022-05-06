@@ -32,5 +32,5 @@ def extract_contents(scrape_links: List[str]) -> None:
 if __name__ == "__main__":
     links = scraped_links(LINK)
     print(len(links))
-    #os.mkdir('data')
-    #extract_contents(links)
+    os.mkdir('data')
+    extract_contents(links)
