@@ -1,36 +1,43 @@
 from bs4 import BeautifulSoup
 import requests
-import time
 import os
 from typing import List
 
 LINK = "http://shakespeare.mit.edu"
 
 def scraped_links(link: str) -> List[str]:
-    home = requests.get(link)
-    soup = BeautifulSoup(home.content, 'html.parser')
+    # TODO: Get retrieve contents of the page and create soup
     scrape_links = []
-    for link in soup.find_all('a')[2:-7]:
-        scrape_links.append(link.get('href').split("/")[0])
+    # TODO: Get all the links we needed from our main source and return them, we only need the links [2:-7]
+    for link in list():
+        scrape_links.append(link)
     return scrape_links
 
 def extract_contents(scrape_links: List[str]) -> None:
     for l in scrape_links:
-        link = LINK + "/" + l + "/full.html"
-        response = requests.get(link)
+        # TODO: Make the link that we are going to scrape from
+        link = None
+        # TODO: Gather the contents from that link
+        response = None
         if (response.ok):
-            soup = BeautifulSoup(response.content, 'html.parser')
-            blocks = soup.find_all('blockquote')
+            # TODO: Create soup for each link that we scraped
+            blocks = []
             file_name = f"data/{l}.txt"
             f = open(file_name, 'x')
-            with open(file_name, 'a') as f:
-                for b in blocks:
-                    f.write(b.get_text())
+            with open(file_name, 'a') as f: # For each file made
+                pass # TODO: Write the text onto the opened file
+
+def main() -> None:
+    links = scraped_links(LINK)
+    print("We are going to scrape", len(links), "links.")
+    os.mkdir('data')
+    extract_contents(links)
+    print("Data now loaded. Now create thy markov chains.")
         
         
 
 if __name__ == "__main__":
-    links = scraped_links(LINK)
-    print(len(links))
-    os.mkdir('data')
-    extract_contents(links)
+    if not os.path.exists((os.getcwd()+"/data")):
+        main()
+    else:
+        print("Data already created, no need to make them again.")
