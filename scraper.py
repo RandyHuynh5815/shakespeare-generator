@@ -5,6 +5,9 @@ from typing import List
 
 LINK = "http://shakespeare.mit.edu"
 
+# Hints:
+# Documentation for BeautifulSoup: https://www.crummy.com/software/BeautifulSoup/bs4/doc/
+
 def scraped_links(link: str) -> List[str]:
     # TODO: Get retrieve contents of the page and create soup
     scrape_links = []
