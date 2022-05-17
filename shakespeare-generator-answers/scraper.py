@@ -11,7 +11,6 @@ LINK = "http://shakespeare.mit.edu"
 def scraped_links(link: str) -> List[str]:
     response = requests.get(LINK)
     soup = BeautifulSoup(response.content, 'html.parser')
-    # TODO: Get retrieve contents of the page and create soup
     scrape_links = []
     # TODO: Get all the links we needed from our main source and return them, we only need the links [2:-7]
     for link in soup.find_all('a')[2:-7]:
@@ -24,15 +23,16 @@ def extract_contents(scrape_links: List[str]) -> None:
         link = LINK + "/" + l + "/full.html"
         # TODO: Gather the contents from that link
         response = requests.get(link)
-        soup = BeautifulSoup(response.content, 'html.parser')
         if (response.ok):
             # TODO: Create soup for each link that we scraped
+            soup = BeautifulSoup(response.content, 'html.parser')
             blocks = soup.find_all('blockquote')
             file_name = f"data/{l}.txt"
             f = open(file_name, 'x')
             with open(file_name, 'a') as f: # For each file made
+                # TODO: Write the text onto the opened file
                 for b in blocks:
-                    f.write(b.get_text()) # TODO: Write the text onto the opened file
+                    f.write(b.get_text())
 
 def main() -> None:
     links = scraped_links(LINK)
